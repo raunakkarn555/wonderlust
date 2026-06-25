@@ -20,4 +20,13 @@ router.route("/login")
 // logout
 router.get("/logout", userController.logout);
 
+
+// pages
+router.get("/about", userController.renderAbout);
+router.get("/contact", userController.renderContact);
+router.post("/contact", wrapAsync(userController.submitContactForm));
+router.get("/privacy", userController.renderPrivacy);
+router.get("/terms", userController.renderTerms);
+router.get("/developer", userController.renderDeveloper);
+
 module.exports = router;

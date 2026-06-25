@@ -1,0 +1,310 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+/* Container constraints */
+.about-container {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Hero Section using Flexbox */
+.about-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    color: #111;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero-text p {
+    font-size: 1.15rem;
+    color: #666;
+    max-width: 700px;
+}
+
+.hero-icon-box {
+    background: #fe424d; /* Wonderlust Red */
+    color: white;
+    padding: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem; /* Slightly larger for the compass */
+    transition: transform 0.5s ease;
+}
+
+/* Fun hover effect: Make the compass spin gently when hovered! */
+.about-hero:hover .hero-icon-box i {
+    transform: rotate(360deg);
+    transition: transform 0.8s ease-in-out;
+}
+
+/* Two-column layout using Grid */
+.about-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Left side formatting */
+.project-story h2 {
+    font-size: 1.8rem;
+    color: #fe424d;
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-story p {
+    margin-bottom: 1.2rem;
+    color: #444;
+}
+
+.project-story h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #111;
+}
+
+.objectives-list {
+    padding-left: 1.2rem;
+}
+
+.objectives-list li {
+    margin-bottom: 0.8rem;
+}
+
+/* Right side - Sidebar Profile Card */
+.profile-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-top: 5px solid #fe424d; /* Elegant top accent bar */
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center; /* Center-align card details */
+}
+
+/* Profile Image Styles */
+.profile-img-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensures the image doesn't stretch weirdly */
+    border: 3px solid #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card h3 {
+    font-size: 1.1rem;
+    color: #fe424d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.profile-card h4 {
+    font-size: 1.5rem;
+    color: #111;
+    margin-bottom: 0.25rem;
+}
+
+.profile-card .subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.profile-card .bio {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    text-align: left; /* Keep biography text naturally aligned */
+}
+
+/* GitHub Button styling */
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: #24292e;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.github-btn:hover {
+    background: #111;
+}
+
+.about-cta-section {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 2px solid #eef0f2;
+}
+
+.about-cta-section h3 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.cta-buttons-flex {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.about-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.about-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+/* Secondary Button - Developer Profile */
+.btn-dev {
+    background-color: #1a1a1a;
+    color: #ffffff !important;
+}
+
+/* Primary Button - Contact Page */
+.btn-contact {
+    background-color: #fe424d; /* Wonderlust Red */
+    color: #ffffff !important;
+}
+
+
+/* Responsive design for phones and tablets */
+@media (max-width: 768px) {
+    .about-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .hero-icon-box {
+        order: -1; 
+        padding: 1.75rem;
+        font-size: 2rem;
+    }
+
+    .about-layout {
+        grid-template-columns: 1fr; 
+        gap: 2rem;
+    }
+}
+</style>
+
+<% layout("/layouts/boilerplate") %>
+
+<link rel="stylesheet" href="/css/about.css">
+
+<div class="about-container">
+    
+    <header class="about-hero">
+        <div class="hero-text">
+            <h1>About WonderLust</h1>
+            <p>WonderLust is an Airbnb-inspired full-stack web application designed to list hotels, homestays, and unique destinations. Built as a major learning project, it bridges the gap between conceptual backend logic and dynamic frontend design.</p>
+        </div>
+<div class="hero-icon-box">
+    <i class="fa-solid fa-plane"></i>
+</div>
+    </header>
+
+    <div class="about-layout">
+        
+        <main class="project-story">
+            <h2>The Journey Behind the Code</h2>
+            <p>Every great developer starts with a single step. WonderLust represents the first major milestone in my journey into full-stack development. It was built to deeply understand how data flows securely across modern web architectures.</p>
+            <p>Through building this project, I transitioned theoretical knowledge into actual practical execution—tackling engineering challenges like handling asynchronous database operations, maintaining secure user sessions, and designing modular, reusable architectures.</p>
+            
+<h3>Core Learning Objectives & Milestones</h3>
+<ul class="objectives-list">
+    <li><strong>The MERN Stack Experience:</strong> Diving deep into MongoDB, Express.js, and Node.js to understand how the core components of a modern full-stack ecosystem communicate seamlessly.</li>
+    <li><strong>CRUD Implementation:</strong> Designing reliable RESTful routes for creating, reading, updating, and deleting property listings dynamically.</li>
+    <li><strong>Security & Authentication:</strong> Implementing strict middleware validations and securing user data via custom login/signup handlers powered by Passport.js.</li>
+    <li><strong>Database Architecture:</strong> Constructing model schemas and managing data relationships dynamically using MongoDB and Mongoose object modeling.</li>
+    <li><strong>First Steps with npm:</strong> Discovering the power of the Node Package Manager (`npm`) to manage backend dependencies, integrate third-party packages, and configure project environment scripts.</li>
+    <li><strong>Version Control (Git & GitHub):</strong> Learning to use Git locally via the command line to track development history, write professional commits, and deploy repositories safely to GitHub.</li>
+    <li><strong>Command Line Mastery:</strong> Breaking away from regular user interfaces to navigate directories, manipulate code environments, and spin up local testing servers directly through the terminal.</li>
+    <li><strong>Cloud Deployment:</strong> Transitioning the application from `localhost` to production by scaling databases onto MongoDB Atlas and deploying the live code onto Render.</li>
+</ul>
+        </main>
+
+        <aside class="developer-profile">
+            <div class="profile-card">
+                <div class="profile-img-container">
+                    <img src="/favicon/Raunak-Karn.png" alt="Raunak Karn" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80'" class="profile-img">
+                </div>
+
+                <h3>Meet the Developer</h3>
+                <h4>Raunak Karn</h4>
+                <p class="subtitle">Tech Enthusiast & Aspiring Full-Stack Developer</p>
+                <p class="bio">I am a passionate tech explorer eager to master full-stack technologies, continuous learning, and software engineering principles. WonderLust is my inaugural project, built as a playground to practice code, experiment with new packages, and gear up for exciting professional opportunities.</p>
+                <a href="https://github.com/raunakkarn555/" target="_blank" class="github-btn">
+                    <i class="fa-brands fa-github"></i> GitHub Profile
+                </a>
+            </div>
+        </aside>
+
+    </div>
+    <div class="about-cta-section">
+    <h3>Want to collaborate or see who built WonderLust?</h3>
+    <div class="cta-buttons-flex">
+        <!-- Button 1: Links to Developer Profile -->
+        <a href="/developer" class="about-btn btn-dev">
+           <i class="fa-solid fa-laptop-code"></i> Meet the Developer
+        </a>
+        
+        <!-- Button 2: Links to Contact Page -->
+        <a href="/contact" class="about-btn btn-contact">
+            <i class="fa-solid fa-paper-plane"></i> Get In Touch
+        </a>
+    </div>
+    </div>
+</div>
+
+

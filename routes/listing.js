@@ -16,6 +16,7 @@ router.route("/")
 //new route
 router.get('/new', isLoggedIn, listingController.renderNewForm);
 
+
 // load-more
 router.get('/load-more', wrapAsync(listingController.loadMore));
 

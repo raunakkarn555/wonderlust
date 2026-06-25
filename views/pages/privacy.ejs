@@ -1,0 +1,60 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+.legal-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #333;
+    line-height: 1.7;
+}
+.legal-header {
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+.legal-header h1 {
+    font-size: 2.5rem;
+    color: #111;
+    font-weight: 700;
+}
+.legal-container h2 {
+    font-size: 1.5rem;
+    color: #fe424d; /* Wonderlust Red */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.legal-container p, .legal-container li {
+    color: #555;
+    font-size: 1rem;
+}
+.legal-container ul {
+    padding-left: 1.2rem;
+}
+.legal-container ul li {
+    margin-bottom: 0.5rem;
+}
+</style>
+
+<div class="legal-container">
+    <div class="legal-header">
+        <h1>Privacy Policy</h1>
+        <p class="text-muted">Last updated: June 2026</p>
+    </div>
+
+    <p>Welcome to WonderLust. This application is a full-stack educational project built by Raunak Karn for practice and portfolio showcase purposes. It is not intended for public commercial use or live lodging transactions.</p>
+
+    <h2>1. Information We Collect</h2>
+    <p>Because this is a development-level platform, the data collected is minimal and strictly limited to verifying application functionalities:</p>
+    <ul>
+        <li><strong>Account Registration:</strong> When you sign up, we store usernames, email addresses, and encrypted passwords powered securely by Passport.js hashing.</li>
+        <li><strong>Listing Contributions:</strong> Any titles, pricing, descriptions, or placeholder images you submit to create a dummy hotel or homestay are saved inside our cloud database.</li>
+    </ul>
+
+    <h2>2. How Data is Handled</h2>
+    <p>Your data is securely stored inside a dynamic non-relational cluster on MongoDB Atlas. We do not share, sell, or process this data with any third-party marketing services or commercial tracking systems.</p>
+
+    <h2>3. Security Frameworks</h2>
+    <p>We deploy robust schema models and custom backend middleware to sanitize inputs. However, as this project runs in a local sandbox/testing environment, please <strong>do not upload real-world sensitive passwords or genuine banking credentials</strong> anywhere on this platform.</p>
+</div>

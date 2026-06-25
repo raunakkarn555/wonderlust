@@ -1,0 +1,200 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+/* Page Layout constraints */
+.contact-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-header h1 {
+    font-size: 2.5rem;
+    color: #111;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.contact-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Two Column Split: Details vs Form */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Left side columns info info */
+.contact-info h2 {
+    font-size: 1.6rem;
+    color: #fe424d; /* Wonderlust Red */
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-item i {
+    font-size: 1.3rem;
+    color: #fe424d;
+    margin-top: 0.2rem;
+}
+
+.info-text h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #111;
+}
+
+.info-text p {
+    margin: 0.25rem 0 0 0;
+    color: #666;
+}
+
+/* Right side dynamic Contact Form */
+.contact-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-control-custom:focus {
+    border-color: #fe424d;
+}
+
+textarea.form-control-custom {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Submit Button styling */
+.submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: #fe424d;
+    color: white;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #e0323c;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+</style>
+
+<div class="contact-container">
+    
+    <header class="contact-header">
+        <h1>Get in Touch</h1>
+        <p>Have questions about WonderLust or want to discuss full-stack opportunities? drop a message!</p>
+    </header>
+
+    <div class="contact-grid">
+        
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="info-item">
+                <i class="fa-solid fa-user"></i>
+                <div class="info-text">
+                    <h4>Developer</h4>
+                    <p>Raunak Karn</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div class="info-text">
+                    <h4>Email Me</h4>
+                    <p>raunakkarn555@gmail.com</p> </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="info-text">
+                    <h4>Location</h4>
+                    <p>New Delhi, India</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <form action="/contact" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control-custom" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" class="form-control-custom" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" class="form-control-custom" placeholder="Type your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
