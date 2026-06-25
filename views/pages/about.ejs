@@ -1,17 +1,21 @@
 <% layout("/layouts/boilerplate") %>
 
 <style>
-/* Container constraints */
+/* ── BASE RESET ── */
+*, *::before, *::after { box-sizing: border-box; }
+
 .about-container {
     max-width: 1100px;
-    margin: 3rem auto;
-    padding: 0 1.5rem;
+    margin: 2rem auto;
+    padding: 0 1.25rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
     line-height: 1.6;
 }
 
-/* Hero Section using Flexbox */
+/* ══════════════════════════════════════════
+   HERO SECTION
+══════════════════════════════════════════ */
 .about-hero {
     display: flex;
     align-items: center;
@@ -22,41 +26,45 @@
     border-radius: 12px;
     padding: 3rem;
     margin-bottom: 3rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .hero-text h1 {
-    font-size: 2.5rem;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
     color: #111;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
 }
 
 .hero-text p {
-    font-size: 1.15rem;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
     color: #666;
     max-width: 700px;
+    margin: 0;
 }
 
 .hero-icon-box {
-    background: #fe424d; /* Wonderlust Red */
+    flex-shrink: 0;
+    background: #fe424d;
     color: white;
-    padding: 2.5rem;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3.5rem; /* Slightly larger for the compass */
+    font-size: 3rem;
     transition: transform 0.5s ease;
 }
 
-/* Fun hover effect: Make the compass spin gently when hovered! */
 .about-hero:hover .hero-icon-box i {
     transform: rotate(360deg);
     transition: transform 0.8s ease-in-out;
 }
 
-/* Two-column layout using Grid */
+/* ══════════════════════════════════════════
+   TWO-COLUMN LAYOUT
+══════════════════════════════════════════ */
 .about-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -64,9 +72,9 @@
     align-items: start;
 }
 
-/* Left side formatting */
+/* ── LEFT: PROJECT STORY ── */
 .project-story h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     color: #fe424d;
     border-bottom: 2px solid #f8f9fa;
     padding-bottom: 0.5rem;
@@ -76,78 +84,85 @@
 .project-story p {
     margin-bottom: 1.2rem;
     color: #444;
+    font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .project-story h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: #111;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
 .objectives-list {
     padding-left: 1.2rem;
+    margin: 0;
 }
 
 .objectives-list li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.85rem;
+    color: #444;
+    font-size: clamp(0.88rem, 2vw, 0.97rem);
 }
 
-/* Right side - Sidebar Profile Card */
+/* ── RIGHT: PROFILE CARD ── */
 .profile-card {
     background: #ffffff;
     border: 1px solid #e9ecef;
-    border-top: 5px solid #fe424d; /* Elegant top accent bar */
+    border-top: 5px solid #fe424d;
     border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    text-align: center; /* Center-align card details */
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+    /* Stick to top on scroll */
+    position: sticky;
+    top: 1.5rem;
 }
 
-/* Profile Image Styles */
 .profile-img-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     display: flex;
     justify-content: center;
 }
 
 .profile-img {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    object-fit: cover; /* Ensures the image doesn't stretch weirdly */
+    object-fit: cover;
     border: 3px solid #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .profile-card h3 {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     color: #fe424d;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
 }
 
 .profile-card h4 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     color: #111;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
 }
 
 .profile-card .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #888;
     margin-bottom: 1rem;
     font-weight: 500;
 }
 
 .profile-card .bio {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #555;
     margin-bottom: 1.5rem;
-    text-align: left; /* Keep biography text naturally aligned */
+    text-align: left;
+    line-height: 1.65;
 }
 
-/* GitHub Button styling */
 .github-btn {
     display: inline-flex;
     align-items: center;
@@ -155,18 +170,20 @@
     gap: 0.5rem;
     width: 100%;
     background: #24292e;
-    color: white;
+    color: white !important;
     padding: 0.75rem;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.95rem;
     transition: background 0.2s ease;
 }
 
-.github-btn:hover {
-    background: #111;
-}
+.github-btn:hover { background: #111; }
 
+/* ══════════════════════════════════════════
+   CTA SECTION
+══════════════════════════════════════════ */
 .about-cta-section {
     text-align: center;
     margin-top: 4rem;
@@ -175,7 +192,7 @@
 }
 
 .about-cta-section h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: #1a1a1a;
     margin-bottom: 1.5rem;
     font-weight: 700;
@@ -184,7 +201,7 @@
 .cta-buttons-flex {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
 }
 
@@ -196,93 +213,162 @@
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     transition: transform 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
 }
 
-.about-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.95;
-}
+.about-btn:hover { transform: translateY(-2px); opacity: 0.92; }
 
-/* Secondary Button - Developer Profile */
-.btn-dev {
-    background-color: #1a1a1a;
-    color: #ffffff !important;
-}
+.btn-dev     { background-color: #1a1a1a; color: #ffffff !important; }
+.btn-contact { background-color: #fe424d; color: #ffffff !important; }
 
-/* Primary Button - Contact Page */
-.btn-contact {
-    background-color: #fe424d; /* Wonderlust Red */
-    color: #ffffff !important;
-}
-
-
-/* Responsive design for phones and tablets */
-@media (max-width: 768px) {
-    .about-hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem;
+/* ══════════════════════════════════════════
+   RESPONSIVE — TABLET  (≤ 900px)
+══════════════════════════════════════════ */
+@media (max-width: 900px) {
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
+    /* Card goes below the story on tablets */
+    .developer-profile { order: 2; }
+    .project-story     { order: 1; }
+
+    .profile-card {
+        position: static; /* No sticky on small screens */
+        max-width: 480px;
+        margin: 0 auto;
+    }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — MOBILE  (≤ 600px)
+══════════════════════════════════════════ */
+@media (max-width: 600px) {
+    .about-container {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+
+    /* ── Hero ── */
+    .about-hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.75rem 1.25rem;
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Icon moves to the top on mobile */
     .hero-icon-box {
-        order: -1; 
-        padding: 1.75rem;
+        order: -1;
+        width: 80px;
+        height: 80px;
         font-size: 2rem;
     }
 
-    .about-layout {
-        grid-template-columns: 1fr; 
-        gap: 2rem;
+    .hero-text p { font-size: 0.95rem; }
+
+    /* ── Story ── */
+    .project-story h2  { font-size: 1.3rem; }
+    .project-story h3  { font-size: 1rem; }
+    .objectives-list   { padding-left: 1rem; }
+    .objectives-list li { font-size: 0.88rem; margin-bottom: 0.7rem; }
+
+    /* ── Profile Card ── */
+    .profile-card {
+        padding: 1.5rem 1.25rem;
+        max-width: 100%;
     }
+
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-card h4 { font-size: 1.2rem; }
+    .profile-card .bio { font-size: 0.88rem; }
+
+    /* ── CTA ── */
+    .about-cta-section { margin-top: 2.5rem; }
+
+    .cta-buttons-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .about-btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+        padding: 0.85rem 1.5rem;
+    }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE  (≤ 380px)
+══════════════════════════════════════════ */
+@media (max-width: 380px) {
+    .about-hero { padding: 1.25rem 1rem; }
+    .hero-text h1 { font-size: 1.4rem; }
+    .profile-img  { width: 85px; height: 85px; }
+    .about-btn    { font-size: 0.88rem; }
 }
 </style>
 
-<% layout("/layouts/boilerplate") %>
-
-<link rel="stylesheet" href="/css/about.css">
-
 <div class="about-container">
-    
+
+    <!-- ── HERO ── -->
     <header class="about-hero">
         <div class="hero-text">
             <h1>About WonderLust</h1>
             <p>WonderLust is an Airbnb-inspired full-stack web application designed to list hotels, homestays, and unique destinations. Built as a major learning project, it bridges the gap between conceptual backend logic and dynamic frontend design.</p>
         </div>
-<div class="hero-icon-box">
-    <i class="fa-solid fa-plane"></i>
-</div>
+        <div class="hero-icon-box">
+            <i class="fa-solid fa-plane"></i>
+        </div>
     </header>
 
+    <!-- ── TWO-COLUMN LAYOUT ── -->
     <div class="about-layout">
-        
+
+        <!-- LEFT: Project Story -->
         <main class="project-story">
             <h2>The Journey Behind the Code</h2>
             <p>Every great developer starts with a single step. WonderLust represents the first major milestone in my journey into full-stack development. It was built to deeply understand how data flows securely across modern web architectures.</p>
             <p>Through building this project, I transitioned theoretical knowledge into actual practical execution—tackling engineering challenges like handling asynchronous database operations, maintaining secure user sessions, and designing modular, reusable architectures.</p>
-            
-<h3>Core Learning Objectives & Milestones</h3>
-<ul class="objectives-list">
-    <li><strong>The MERN Stack Experience:</strong> Diving deep into MongoDB, Express.js, and Node.js to understand how the core components of a modern full-stack ecosystem communicate seamlessly.</li>
-    <li><strong>CRUD Implementation:</strong> Designing reliable RESTful routes for creating, reading, updating, and deleting property listings dynamically.</li>
-    <li><strong>Security & Authentication:</strong> Implementing strict middleware validations and securing user data via custom login/signup handlers powered by Passport.js.</li>
-    <li><strong>Database Architecture:</strong> Constructing model schemas and managing data relationships dynamically using MongoDB and Mongoose object modeling.</li>
-    <li><strong>First Steps with npm:</strong> Discovering the power of the Node Package Manager (`npm`) to manage backend dependencies, integrate third-party packages, and configure project environment scripts.</li>
-    <li><strong>Version Control (Git & GitHub):</strong> Learning to use Git locally via the command line to track development history, write professional commits, and deploy repositories safely to GitHub.</li>
-    <li><strong>Command Line Mastery:</strong> Breaking away from regular user interfaces to navigate directories, manipulate code environments, and spin up local testing servers directly through the terminal.</li>
-    <li><strong>Cloud Deployment:</strong> Transitioning the application from `localhost` to production by scaling databases onto MongoDB Atlas and deploying the live code onto Render.</li>
-</ul>
+
+            <h3>Core Learning Objectives &amp; Milestones</h3>
+            <ul class="objectives-list">
+                <li><strong>The MERN Stack Experience:</strong> Diving deep into MongoDB, Express.js, and Node.js to understand how the core components of a modern full-stack ecosystem communicate seamlessly.</li>
+                <li><strong>CRUD Implementation:</strong> Designing reliable RESTful routes for creating, reading, updating, and deleting property listings dynamically.</li>
+                <li><strong>Security &amp; Authentication:</strong> Implementing strict middleware validations and securing user data via custom login/signup handlers powered by Passport.js.</li>
+                <li><strong>Database Architecture:</strong> Constructing model schemas and managing data relationships dynamically using MongoDB and Mongoose object modeling.</li>
+                <li><strong>First Steps with npm:</strong> Discovering the power of the Node Package Manager to manage backend dependencies, integrate third-party packages, and configure project environment scripts.</li>
+                <li><strong>Version Control (Git &amp; GitHub):</strong> Learning to use Git locally via the command line to track development history, write professional commits, and deploy repositories safely to GitHub.</li>
+                <li><strong>Command Line Mastery:</strong> Breaking away from regular user interfaces to navigate directories, manipulate code environments, and spin up local testing servers directly through the terminal.</li>
+                <li><strong>Cloud Deployment:</strong> Transitioning the application from <code>localhost</code> to production by scaling databases onto MongoDB Atlas and deploying the live code onto Render.</li>
+            </ul>
         </main>
 
+        <!-- RIGHT: Profile Card -->
         <aside class="developer-profile">
             <div class="profile-card">
                 <div class="profile-img-container">
-                    <img src="/favicon/Raunak-Karn.png" alt="Raunak Karn" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80'" class="profile-img">
+                    <img
+                        src="/favicon/Raunak-Karn.png"
+                        alt="Raunak Karn"
+                        onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80'"
+                        class="profile-img"
+                    >
                 </div>
-
                 <h3>Meet the Developer</h3>
                 <h4>Raunak Karn</h4>
-                <p class="subtitle">Tech Enthusiast & Aspiring Full-Stack Developer</p>
+                <p class="subtitle">Tech Enthusiast &amp; Aspiring Full-Stack Developer</p>
                 <p class="bio">I am a passionate tech explorer eager to master full-stack technologies, continuous learning, and software engineering principles. WonderLust is my inaugural project, built as a playground to practice code, experiment with new packages, and gear up for exciting professional opportunities.</p>
                 <a href="https://github.com/raunakkarn555/" target="_blank" class="github-btn">
                     <i class="fa-brands fa-github"></i> GitHub Profile
@@ -291,20 +377,18 @@
         </aside>
 
     </div>
+
+    <!-- ── CTA ── -->
     <div class="about-cta-section">
-    <h3>Want to collaborate or see who built WonderLust?</h3>
-    <div class="cta-buttons-flex">
-        <!-- Button 1: Links to Developer Profile -->
-        <a href="/developer" class="about-btn btn-dev">
-           <i class="fa-solid fa-laptop-code"></i> Meet the Developer
-        </a>
-        
-        <!-- Button 2: Links to Contact Page -->
-        <a href="/contact" class="about-btn btn-contact">
-            <i class="fa-solid fa-paper-plane"></i> Get In Touch
-        </a>
+        <h3>Want to collaborate or see who built WonderLust?</h3>
+        <div class="cta-buttons-flex">
+            <a href="/developer" class="about-btn btn-dev">
+                <i class="fa-solid fa-laptop-code"></i> Meet the Developer
+            </a>
+            <a href="/contact" class="about-btn btn-contact">
+                <i class="fa-solid fa-paper-plane"></i> Get In Touch
+            </a>
+        </div>
     </div>
-    </div>
+
 </div>
-
-
