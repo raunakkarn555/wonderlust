@@ -1,0 +1,329 @@
+<% layout('/layouts/boilerplate') %> 
+
+<style>
+    #filters {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+        position: relative;
+    }
+
+    #filters-scroll {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex: 1;
+    }
+    #filters-scroll::-webkit-scrollbar { display: none; }
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.4rem 1rem;
+        opacity: 0.7;
+        flex-shrink: 0;
+        transition: opacity 0.2s;
+    }
+    .filter:hover { opacity: 1; cursor: pointer; }
+    .filter p { font-size: 0.75rem; margin: 0.25rem 0 0; }
+    .filter i { font-size: 1.2rem; }
+
+    .filter-link { text-decoration: none; color: inherit; }
+
+    .active-filter {
+        opacity: 1;
+        border-bottom: 2px solid black;
+        padding-bottom: 6px;
+    }
+
+    /*
+     * ROOT FIX for tax toggle:
+     * Use a <span class="tax-info"> instead of <i class="tax-info">
+     * and hide it via a parent body class so CSS specificity is
+     * always higher than any Bootstrap override.
+     * When body has class "tax-hidden", all .tax-info spans are hidden.
+     * When body does NOT have "tax-hidden", they are visible.
+     * This means JS only needs to toggle ONE class on body — clean & reliable.
+     */
+    body.tax-hidden .tax-info {
+        display: none !important;
+    }
+    .tax-info {
+        display: inline;
+    }
+
+    .scroll-fade {
+        display: none;
+        width: 36px;
+        flex-shrink: 0;
+        pointer-events: none;
+        align-self: stretch;
+        background: linear-gradient(to right, transparent, white);
+    }
+
+    .tax-toggle {
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 3.20rem;
+        padding: 0.5rem 1rem;
+        margin-right: 2rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        user-select: none;
+    }
+    .tax-toggle.active {
+        background: black;
+        color: white;
+    }
+    .tax-toggle .pill-icon  { display: none; }
+    .tax-toggle .pill-label { display: inline; }
+
+    /* ── Mobile ── */
+    @media (max-width: 576px) {
+        .filter p  { font-size: 0.65rem; }
+        .filter    { padding: 0.3rem 0.6rem; }
+        .filter i  { font-size: 1rem; }
+
+        .scroll-fade { display: block; }
+
+        .tax-toggle {
+            padding: 0.55rem 0.7rem;
+            border-radius: 50%;
+            height: 2.4rem;
+            width: 2.4rem;
+            justify-content: center;
+        }
+        .tax-toggle .pill-label { display: none; }
+        .tax-toggle .pill-icon  { display: inline; font-size: 1rem; }
+
+        .tax-toggle .form-check { display: none; }
+    }
+</style>
+
+<%
+  /*
+   * Add "tax-hidden" to body on first render so GST is hidden by default.
+   * We do this by injecting a small inline script before anything renders.
+   */
+%>
+<script>
+    /* Run immediately — before DOM paints — so there's no flicker */
+    document.body.classList.add("tax-hidden");
+</script>
+
+<div id="filters">
+    <div id="filters-scroll">
+        <a href="/listings" class="filter-link">
+            <div class="filter <%= !currentCategory ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-list"></i></div>
+                <p>All</p>
+            </div>
+        </a>
+        <a href="/listings?category=Trending" class="filter-link">
+            <div class="filter <%= currentCategory === 'Trending' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </div>
+        </a>
+        <a href="/listings?category=Rooms" class="filter-link">
+            <div class="filter <%= currentCategory === 'Rooms' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </div>
+        </a>
+        <a href="/listings?category=Iconic%20Cities" class="filter-link">
+            <div class="filter <%= currentCategory === 'Iconic Cities' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </div>
+        </a>
+        <a href="/listings?category=Mountains" class="filter-link">
+            <div class="filter <%= currentCategory === 'Mountains' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </div>
+        </a>
+        <a href="/listings?category=Castles" class="filter-link">
+            <div class="filter <%= currentCategory === 'Castles' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-archway"></i></div>
+                <p>Castles</p>
+            </div>
+        </a>
+        <a href="/listings?category=Amazing%20Pools" class="filter-link">
+            <div class="filter <%= currentCategory === 'Amazing Pools' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Amazing Pools</p>
+            </div>
+        </a>
+        <a href="/listings?category=Camping" class="filter-link">
+            <div class="filter <%= currentCategory === 'Camping' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </div>
+        </a>
+        <a href="/listings?category=Farms" class="filter-link">
+            <div class="filter <%= currentCategory === 'Farms' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-tractor"></i></div>
+                <p>Farms</p>
+            </div>
+        </a>
+        <a href="/listings?category=Arctic" class="filter-link">
+            <div class="filter <%= currentCategory === 'Arctic' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-igloo"></i></div>
+                <p>Arctic</p>
+            </div>
+        </a>
+        <a href="/listings?category=Domes" class="filter-link">
+            <div class="filter <%= currentCategory === 'Domes' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-landmark-dome"></i></div>
+                <p>Domes</p>
+            </div>
+        </a>
+        <a href="/listings?category=Boats" class="filter-link">
+            <div class="filter <%= currentCategory === 'Boats' ? 'active-filter' : '' %>">
+                <div><i class="fa-solid fa-sailboat"></i></div>
+                <p>Boats</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="scroll-fade"></div>
+
+    <div class="tax-toggle" id="taxToggle">
+        <i class="fa-solid fa-percent pill-icon"></i>
+        <div class="form-check form-check-reverse form-switch pill-label" style="margin:0">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1" 
+         id="listings-container" 
+         data-total="<%= totalListings %>" 
+         data-loaded="<%= allListings.length %>"
+         data-category="<%= currentCategory || '' %>"
+         data-search="<%= searchQuery %>">
+
+        <% if (allListings.length === 0) { %>
+            <div class="col-12 text-center mt-5 mb-5">
+                <i class="fa-solid fa-magnifying-glass fa-2x mb-3" style="color:#ccc;"></i>
+                <h5 class="text-muted">No results found for "<%= searchQuery %>"</h5>
+                <a href="/listings" class="btn btn-outline-dark mt-3">Clear search</a>
+            </div>
+        <% } else { %>
+            <% for(let listing of allListings){ %>
+                <a href="/listings/<%= listing._id %>" class="listing-link">
+                    <div class="listing-card col card">
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b><%= listing.title %></b><br>
+                                &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                                <span class="tax-info">&ensp;&ensp;+18% GST</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            <% } %>
+        <% } %>
+    </div>
+</div>
+
+<div class="text-center mt-4 mb-5" id="load-more-container">
+    <% if(allListings.length < totalListings) { %>
+        <button class="btn btn-outline-dark px-4" id="load-more-btn">Load More</button>
+    <% } %>
+</div>
+
+<script>
+    const container   = document.getElementById("listings-container");
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    const taxToggle   = document.getElementById("taxToggle");
+    const checkbox    = document.getElementById("switchCheckDefault");
+
+    // ── Tax Toggle ──────────────────────────────────────────────────────────
+    // Strategy: toggle a single "tax-hidden" class on <body>.
+    // CSS rule "body.tax-hidden .tax-info { display: none !important }" does
+    // all the work — no per-element JS loops needed, and newly appended
+    // Load More cards are covered automatically because they inherit the body class.
+
+    function setTax(active) {
+        if (active) {
+            document.body.classList.remove("tax-hidden");  // show GST
+        } else {
+            document.body.classList.add("tax-hidden");     // hide GST
+        }
+        taxToggle.classList.toggle("active", active);
+        checkbox.checked = active;
+    }
+
+    // Clicking the outer toggle div
+    taxToggle.addEventListener("click", () => {
+        const isCurrentlyHidden = document.body.classList.contains("tax-hidden");
+        setTax(isCurrentlyHidden); // if hidden → show; if showing → hide
+    });
+
+    // Clicking the checkbox directly — stop bubble so div doesn't also fire
+    checkbox.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setTax(checkbox.checked);
+    });
+
+    // ── Load More ───────────────────────────────────────────────────────────
+    // No tax wiring needed here — body class covers new cards automatically.
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", async () => {
+            const loaded   = parseInt(container.dataset.loaded);
+            const category = container.dataset.category;
+            const search   = container.dataset.search;
+
+            let url = `/listings/load-more?skip=${loaded}`;
+            if (category) url += `&category=${encodeURIComponent(category)}`;
+            if (search)   url += `&search=${encodeURIComponent(search)}`;
+
+            const res  = await fetch(url);
+            const data = await res.json();
+
+            data.listings.forEach(listing => {
+                const col = document.createElement("a");
+                col.href = `/listings/${listing._id}`;
+                col.className = "listing-link";
+                col.innerHTML = `
+                    <div class="listing-card col card">
+                        <img src="${listing.image.url}" class="card-img-top" style="height:20rem;" alt="listing">
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>${listing.title}</b><br>
+                                &#8377; ${listing.price.toLocaleString("en-IN")} / night
+                                <span class="tax-info">&ensp;&ensp;+18% GST</span>
+                            </p>
+                        </div>
+                    </div>`;
+                container.appendChild(col);
+            });
+
+            container.dataset.loaded = loaded + data.listings.length;
+
+            if (parseInt(container.dataset.loaded) >= data.totalListings) {
+                loadMoreBtn.style.display = "none";
+            }
+        });
+    }
+</script>
