@@ -26,12 +26,10 @@ body {
     color: #222222 !important;
     font-size: 1.2rem;
 }
-
 /* Footer */
 .f-info-links a {
     color: #222222;
     text-decoration: none;
-    margin-right: 15px;
 }
 
 .f-info-links a:hover {
@@ -43,27 +41,52 @@ body {
 .f-info-brand {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
 .f-info-socials i {
     font-size: 1.2rem;
-    margin-right: 1rem;
 }
 
 .f-info {
     text-align: center;
     display: flex;
-    height: 8rem;
+    flex-direction: column;
+    min-height: 8rem;
+    padding: 1.5rem 1rem;
     background-color: #ebebeb;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: space-evenly;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .fa-brands {
     color: #fe424d;
+}
+
+/* Mobile adjustments */
+@media (max-width: 575.98px) {
+  .f-info {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .f-info-links {
+    gap: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .f-info-socials i {
+    font-size: 1.4rem; /* slightly bigger tap targets on mobile */
+  }
+
+  .f-info-brand {
+    font-size: 0.85rem;
+    text-align: center;
+  }
 }
 
 /* Cards */

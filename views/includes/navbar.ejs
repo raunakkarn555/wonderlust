@@ -1,13 +1,17 @@
 <style>
+  /* Base & Button Styles */
   .search-btn {
     background-color: #fe424d;
     color: #fff;
     border-radius: 25px;
-    padding: 0 1rem 0 1rem;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    margin-left: 1rem;
+    white-space: nowrap;
   }
    
-    .search-btn:hover {
-    background-color: #fe424d;
+  .search-btn:hover {
+    background-color: #e0323c;
     color: #fff;
   }
 
@@ -18,68 +22,145 @@
 
   .search-input {
     border-radius: 25px;
-    padding: 0.6rem 3rem 0.6rem 3rem;
+    padding: 0.6rem 1.5rem;
     font-size: 1rem;
   }
 
-.navbar-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem; 
-  font-weight: 600; 
-}
+  /* Brand / Logo Styles */
+  .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem; 
+    font-weight: 600; 
+  }
 
-.navbar-brand i {
-  font-size: 1.6rem; 
-  line-height: 1;    
-}
+  .navbar-brand i {
+    font-size: 1.6rem;
+    line-height: 1;    
+  }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Enhanced toggler visibility */
+  .navbar-toggler {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .navbar-toggler-icon {
+    filter: invert(0) grayscale(1) brightness(0);
+  }
+
+  /* Mobile sidebar (offcanvas) custom styles */
+  @media (max-width: 767.98px) {
+    .offcanvas {
+      width: 280px !important;
+    }
+
+    .offcanvas .search-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      margin: 1.5rem 0;
+    }
+
+    .offcanvas .search-input {
+      width: 100% !important;
+    }
+
+    .offcanvas .search-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .offcanvas .nav-link {
+      padding: 0.85rem 0 !important;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 1.05rem;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+    
+    .offcanvas .nav-link b {
+      color: #fe424d;
+    }
+  }
+
+  /* Desktop layout sizing */
+  @media (min-width: 768px) {
+    .search-input {
+      padding: 0.6rem 3rem;
+      width: 280px;
+    }
+  }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md bg-white border-bottom sticky-top">
   <div class="container-fluid">
+    <!-- Brand / Logo -->
     <div class="logo">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i>WonderLust</a>
+      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i>WonderLust</a>
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-    data-bs-target="#navbarNavAltMarkup">
+    
+    <!-- Toggler Button (fixed: correct Bootstrap data attribute) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" 
+      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
+    
+    <!-- Offcanvas Mobile Sidebar Container -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      
+      <!-- Mobile Sidebar Header -->
+      <div class="offcanvas-header border-bottom d-md-none">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="font-weight: 600;">
+          <i class="fa-regular fa-compass me-2"></i>Menu
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
 
-      <div class="navbar-nav ms-auto">
-<form class="d-flex" role="search" action="/listings" method="GET">
-    <input 
-        class="form-control me-2 search-input" 
-        type="search" 
-        name="search"
-        placeholder="Search destinations"
-        value="<%= searchQuery %>"
-    />
-    <button class="btn search-btn" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>Search
-    </button>
-</form>
-      </div>
+      <!-- Sidebar Body -->
+      <div class="offcanvas-body align-items-center">
+        
+        <!-- Left side links (Explore) -->
+        <div class="navbar-nav me-auto">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
 
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        <% if(!currUser) { %>
-        <a class="nav-link" href="/signup"><b>Sign up</b></a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
-        <% } %> <% if(currUser) { %>
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
-        <% } %>
+        <!-- Center Search Form -->
+        <form class="d-flex search-form mx-md-3" role="search" action="/listings" method="GET">
+          <input 
+            class="form-control search-input" 
+            type="search" 
+            name="search"
+            placeholder="Search destinations"
+            value="<%= searchQuery %>"
+            aria-label="Search"
+          />
+          <button class="btn search-btn d-flex align-items-center" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+
+        <!-- Right side links -->
+        <div class="navbar-nav ms-md-auto">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+          <% if(!currUser) { %>
+            <a class="nav-link" href="/signup"><b>Sign up</b></a>
+            <a class="nav-link" href="/login"><b>Log in</b></a>
+          <% } %> 
+          <% if(currUser) { %>
+            <a class="nav-link" href="/logout"><b>Log out</b></a>
+          <% } %>
+        </div>
+
       </div>
     </div>
   </div>
 </nav>
-
-<!--  -->
